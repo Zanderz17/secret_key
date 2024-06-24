@@ -27,4 +27,4 @@ jobs:
           echo "NEWSAPI_API_KEY=${{ secrets.NEWSAPI_API_KEY }}" > .env
 
       - name: Run script
-        run: python your_script_name.py
+        run: python test_api_key.py
