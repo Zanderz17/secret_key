@@ -1,25 +1,30 @@
-name: Deploy FastAPI Application
+name: Test NewsAPI Integration
 
 on:
   push:
     branches:
-      - main
+      - main  
 
 jobs:
-  deploy:
+  test_api_key:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+      
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install fastapi uvicorn requests python-dotenv
-      - name: Start the application
+          pip install requests python-dotenv
+          
+      - name: Set up environment variables
         run: |
-          uvicorn main:app --reload
-        env:
-          POKEMON_TCG_API_KEY: ${{ secrets.POKEMON_TCG_API_KEY }}
+          echo "NEWSAPI_API_KEY=${{ secrets.NEWSAPI_API_KEY }}" > .env
+
+      - name: Run script
+        run: python your_script_name.py
